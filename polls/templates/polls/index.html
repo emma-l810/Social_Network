@@ -1,0 +1,22 @@
+<!-- Welcome to the index.html in templates/polls. -->
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>SocialNetwork</title>
+  </head>
+  <body>
+    <h1>The Social Network</h1>
+    <h3>Your safe space to post real life instead of fake media.</h3>
+    <p>social social social social social social social every day</p>
+    <br>
+    <button type="button" name="button">LOGIN</button>
+
+    {% for post in allposts %}
+    {{post.text}}
+    <!-- text is attribute of post -->
+    {% endfor %}
+  </body>
+</html>
+
+<!-- migrate, then go to the admin side and add some data -->
