@@ -11,11 +11,23 @@
     <p>social social social social social social social every day</p>
     <br>
     <button type="button" name="button">LOGIN</button>
+    <h4>Posts</h4>
+    <ul>
+      {% for post in allposts %}
+        <p>{{post.text}} <br> {{post.pub_date}}</p>
+      <!-- text is attribute of post -->
+      <br>
+      {% endfor %}
+    </ul>
+    <br>
+    <h4>Comments</h4>
+    <ul>
+      {% for comment in allcomments %}
+        <p>{{comment.text}} <br> {{comment.pub_date}}</p>
 
-    {% for post in allposts %}
-    {{post.text}}
-    <!-- text is attribute of post -->
-    {% endfor %}
+        <br>
+      {% endfor %}
+    </ul>
   </body>
 </html>
 

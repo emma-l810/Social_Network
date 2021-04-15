@@ -6,10 +6,12 @@ from .models import Post, Comment
 # Create your views here.
 def index(request):
     """
-    first view (home page)
+    first view (home page) - questions: need to get the post to actually show up
     """
-    allposts = Post.object.all()
-    context = {"allpost": allposts, }
+    allposts = Post.objects.order_by('-pub_date')
+    allcomments = Comment.objects.order_by('-pub_date')
+    context = {"allposts": allposts, "allcomments": allcomments}
+    print(context)
     return render(request, 'polls/index.html', context)
 
 def twit(request):
