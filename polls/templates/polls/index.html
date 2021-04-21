@@ -6,28 +6,33 @@
     <title>SocialNetwork</title>
   </head>
   <body>
+    <!-- random intro blurb -->
     <h1>The Social Network</h1>
     <h3>Your safe space to post real life instead of fake media.</h3>
     <p>social social social social social social social every day</p>
     <br>
-    <button type="button" name="button">LOGIN</button>
+    <!-- outputs of dummy Posts and Comments -->
     <h4>Posts</h4>
+    <!-- dummy posts -->
     <ul>
       {% for post in allposts %}
         <p>{{post.text}} <br> {{post.pub_date}}</p>
-      <!-- text is attribute of post -->
+      <!-- note: text is attribute of post -->
       <br>
       {% endfor %}
     </ul>
     <br>
+    <!-- dummy comments -->
     <h4>Comments</h4>
     <ul>
       {% for comment in allcomments %}
-        <p>{{comment.text}} <br> {{comment.pub_date}}</p>
+        <p>{{comment.text}} <br> {{comment.likes}} <3 {{comment.pub_date}}</p>
 
         <br>
       {% endfor %}
     </ul>
+    <br>
+    <button type="button" name="button">LOGIN</button>
   </body>
 </html>
 
