@@ -11,28 +11,50 @@
     <h3>Your safe space to post real life instead of fake media.</h3>
     <p>social social social social social social social every day</p>
     <br>
-    <!-- outputs of dummy Posts and Comments -->
-    <h4>Posts</h4>
-    <!-- dummy posts -->
-    <ul>
-      {% for post in allposts %}
-        <p>{{post.text}} <br> {{post.pub_date}}</p>
-      <!-- note: text is attribute of post -->
-      <br>
-      {% endfor %}
-    </ul>
-    <br>
-    <!-- dummy comments -->
-    <h4>Comments</h4>
-    <ul>
-      {% for comment in allcomments %}
-        <p>{{comment.text}} <br> {{comment.likes}} <3 {{comment.pub_date}}</p>
 
+    {% if loggedIn %}
+      <h3>Hello, user! {{ user.username }}</h3>
+
+      <!-- outputs of dummy Posts and Comments -->
+      <h4>Posts</h4>
+      <!-- dummy posts -->
+      <ul>
+        {% for post in allposts %}
+          <p>{{post.text}} <br> {{post.pub_date}}</p>
+        <!-- note: text is attribute of post -->
         <br>
-      {% endfor %}
-    </ul>
-    <br>
-    <button type="button" name="button">LOGIN</button>
+        {% endfor %}
+      </ul>
+      <br>
+      <!-- dummy comments -->
+      <h4>Comments</h4>
+      <ul>
+        {% for comment in allcomments %}
+          <p>{{comment.text}} <br> {{comment.likes}} <3 {{comment.pub_date}}</p>
+
+          <br>
+        {% endfor %}
+      </ul>
+    {% endif %}
+
+    <!-- login form -->
+    <form action="http://127.0.0.1:8000/" method="post">
+      <h4>Login</h4>
+      {% csrf_token %}
+
+      <!-- username input -->
+      <label for="inputUsername">Username</label>
+      <input type="text" name="inputUsername" id="inputUsername">
+
+      <!-- password input -->
+      <label for="inputPassword">Password</label>
+      <input type="password" name="inputPassword" id="inputPassword">
+
+      <br><br>
+      <button type="submit" name="button">LOGIN</button>
+    </form>
+
+
   </body>
 </html>
 
