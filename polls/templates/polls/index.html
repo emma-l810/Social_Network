@@ -12,8 +12,9 @@
     <p>social social social social social social social every day</p>
     <br>
 
+    <!-- if the user is logged in -->
     {% if loggedIn %}
-      <h3>Hello, user! {{ user.username }}</h3>
+      <h3>Hello, {{ user.username }}!</h3>
 
       <!-- outputs of dummy Posts and Comments -->
       <h4>Posts</h4>
@@ -35,25 +36,34 @@
           <br>
         {% endfor %}
       </ul>
+
+      <!-- logout form - requires hidden element to send the form -->
+      <form action="http://127.0.0.1:8000/" method="post">
+        {% csrf_token %}
+        <input type="hidden" name="logout" value="logout">
+        <button type="submit">Logout</button>
+      </form>
+
+    <!-- if user is not logged in, allow them to log in -->
+    {% else %}
+      <!-- login form -->
+      <form action="http://127.0.0.1:8000/" method="post">
+        <h4>Login</h4>
+        {% csrf_token %}
+
+        <!-- username input -->
+        <label for="inputUsername">Username</label>
+        <input type="text" name="inputUsername" id="inputUsername">
+
+        <!-- password input -->
+        <label for="inputPassword">Password</label>
+        <input type="password" name="inputPassword" id="inputPassword">
+
+        <br><br>
+        <button type="submit">LOGIN</button>
+      </form>
+
     {% endif %}
-
-    <!-- login form -->
-    <form action="http://127.0.0.1:8000/" method="post">
-      <h4>Login</h4>
-      {% csrf_token %}
-
-      <!-- username input -->
-      <label for="inputUsername">Username</label>
-      <input type="text" name="inputUsername" id="inputUsername">
-
-      <!-- password input -->
-      <label for="inputPassword">Password</label>
-      <input type="password" name="inputPassword" id="inputPassword">
-
-      <br><br>
-      <button type="submit" name="button">LOGIN</button>
-    </form>
-
 
   </body>
 </html>
