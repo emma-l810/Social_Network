@@ -19,7 +19,7 @@ class Comment(models.Model):
     """
     Model: a model for commenting on a post
     # """
-    # post = models.ForeignKey(Post, on_delete = models.CASCADE)   #doesn't work
+    post = models.ForeignKey(Post, on_delete = models.CASCADE)   #doesn't work
     text = models.CharField(max_length = 200, default="")
     likes = models.IntegerField(default=0)
     pub_date = models.DateTimeField(default = now)
