@@ -36,6 +36,10 @@ def index(request):
     # gets all posts and comments from the respective models
     allposts = Post.objects.order_by('-pub_date')
     allcomments = Comment.objects.order_by('-pub_date')
+    # allcomments = Comment.objects.none()
+    # for post in allposts:
+    #     comment = Comment.objects.filter(post=post)
+    #     allcomments.append(comment)
 
     # creates json
     context = {

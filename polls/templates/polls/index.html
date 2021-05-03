@@ -22,22 +22,23 @@
       <!-- dummy posts -->
       <ul>
         {% for post in allposts %}
+          <p><b>{{post.user}}</b></p>
           <p>{{post.text}} <br> {{post.pub_date}}</p>
-          
+
+          <ul>
+          {% for comment in allcomments %}
+            {% if comment.post.id == post.id %}
+              <p>{{comment.text}} <br> {{comment.likes}} <3 {{comment.pub_date}}</p>
+
+            {% endif %}
+          {% endfor %}
+        </ul>
+
         <!-- note: text is attribute of post -->
         <br>
         {% endfor %}
       </ul>
       <br>
-      <!-- dummy comments -->
-      <h4>Comments</h4>
-      <ul>
-        {% for comment in allcomments %}
-          <p>{{comment.text}} <br> {{comment.likes}} <3 {{comment.pub_date}}</p>
-
-          <br>
-        {% endfor %}
-      </ul>
 
       <!-- logout form - requires hidden element to send the form -->
       <form action="http://127.0.0.1:8000/" method="post">
