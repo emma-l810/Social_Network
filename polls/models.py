@@ -18,11 +18,14 @@ class Post(models.Model):
 class Comment(models.Model):
     """
     Model: a model for commenting on a post
-    # """
-    post = models.ForeignKey(Post, on_delete = models.CASCADE)   #doesn't work
+    """
+    post = models.ForeignKey(Post, on_delete = models.CASCADE)
     text = models.CharField(max_length = 200, default="")
     likes = models.IntegerField(default=0)
     pub_date = models.DateTimeField(default = now)
 
     # def __str__(self):
     #     return self.comment_text
+
+    # this.post = Post.objects.get(pk=postID)
+    # comments.objects.filter(post=thisPost) # instance of the object

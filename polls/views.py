@@ -14,7 +14,8 @@ def index(request):
         # checks if the form submitted is the login form (by checking for username input)
         if 'inputUsername' in request.POST.keys():
             # attempt authentication of login info
-            user = authenticate(username=request.POST['inputUsername'], password=request.POST['inputPassword'])
+            user = authenticate(username=request.POST['inputUsername'],
+                password=request.POST['inputPassword'])
             if user is not None:
                 # if the user exists, then log in the user
                 login(request, user)
