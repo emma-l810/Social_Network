@@ -7,7 +7,7 @@ from django.contrib.auth import authenticate, login, logout
 # Create your views here.
 def index(request):
     """
-    first view (home page) - questions: need to get the post to actually show up
+    first view (home page) - move login to own view?
     """
     # checks if any form data has been submitted
     if request.POST:
@@ -36,10 +36,6 @@ def index(request):
     # gets all posts and comments from the respective models
     allposts = Post.objects.order_by('-pub_date')
     allcomments = Comment.objects.order_by('-pub_date')
-    # allcomments = Comment.objects.none()
-    # for post in allposts:
-    #     comment = Comment.objects.filter(post=post)
-    #     allcomments.append(comment)
 
     # creates json
     context = {
@@ -51,16 +47,16 @@ def index(request):
 
     return render(request, 'polls/index.html', context)
 
-def twit(request):
+def profile(request):
     """
-    for the twitter post box -> for login=true only
+    for the user profile (profile page) -> for login=true only
     """
     context = {}
-    return render(request, 'polls/twit.html', context)
+    return render(request, 'polls/profile.html', context)
 
-def reply(request):
-    """
-    for the reply box -> for login=true only
-    """
-    context = {}
-    return render(request, 'polls/reply.html', context)
+# def messages(request):
+#     """
+#     for the reply box -> for login=true only
+#     """
+#     context = {}
+#     return render(request, 'polls/reply.html', context)
