@@ -4,6 +4,22 @@ from django.contrib.auth.models import User
 from .models import Post, Comment
 from django.contrib.auth import authenticate, login, logout
 
+# new function that creates an object in the dictionary (refer back to screenshot)
+    # look for root posts if there are any comments, and get those comments, and look
+    # to check if each comment has any subcomments
+def getPostDict(post):
+    postDict = {}   # post dictionary for one post
+    # adding model attributes to dictionary --> find a more efficient way to do this?...
+    postDic['user'] = post.user
+    postDict['text'] = post.text
+    postDict['pub_date'] = post.pub_date
+    postDict['comments'] = []
+    # if a post has comments
+    if Comments.objects.filter(post = post).exists():
+        for comment in Comment.objects.order_by('-pub_date'):
+            pass
+
+
 # Create your views here.
 def index(request):
     """
@@ -33,9 +49,29 @@ def index(request):
     else:
         loggedIn = False
 
-    # gets all posts and comments from the respective models
+    # # gets all posts and comments from the respective models
     allposts = Post.objects.order_by('-pub_date')
     allcomments = Comment.objects.order_by('-pub_date')
+    for post in allposts:
+        print(Comment.objects.filter(post = post))
+
+    # START OF TRAIL AND ERROR
+
+    # allPosts = Post.objects.all()
+    # postList = []
+    # for post in allPosts:
+    #     postDict = {}
+    #     postDict['post'] = post
+    #
+    #     comments = Comment.objects.filter(post = post)
+    #     postDict['comments'] = comments
+    #     postList.append(postDict)
+    postList = []
+    for post in allposts:
+        postDict = getPostDict(post)
+        postList.append(postDict)
+
+    # END OF TRIAL AND ERROR
 
     # creates json
     context = {
