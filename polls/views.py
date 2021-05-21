@@ -4,6 +4,8 @@ from django.contrib.auth.models import User
 from .models import Post, Comment
 from django.contrib.auth import authenticate, login, logout
 
+# Create your views here.
+
 # new function that creates an object in the dictionary (refer back to screenshot)
     # look for root posts if there are any comments, and get those comments, and look
     # to check if each comment has any subcomments
@@ -17,10 +19,14 @@ def getPostDict(post):
     # if a post has comments
     if Comments.objects.filter(post = post).exists():
         for comment in Comment.objects.order_by('-pub_date'):
+            # if comment's commentingOn = null:
+                # append comment to postDict['comments']
+            # else:
+                # loop through getPostDict(comment), and keep doing this until
+                # commentingOn is null
+                # question: make a dictionary in place of simply a comment?
             pass
 
-
-# Create your views here.
 def index(request):
     """
     first view (home page) - move login to own view?
@@ -89,10 +95,3 @@ def profile(request):
     """
     context = {}
     return render(request, 'polls/profile.html', context)
-
-# def messages(request):
-#     """
-#     for the reply box -> for login=true only
-#     """
-#     context = {}
-#     return render(request, 'polls/reply.html', context)
