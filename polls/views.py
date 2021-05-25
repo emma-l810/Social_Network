@@ -17,7 +17,10 @@ def getComment(comment):
     subComments = Comment.objects.filter(commentingOn = comment)
 
     if subComments:
+<<<<<<< HEAD
         layeredComments = []
+=======
+>>>>>>> 96773816dec7f03cfcc0a225758c4880d22d0f37
         return True
     else:
         return False
