@@ -4,6 +4,9 @@ from django.contrib.auth.models import User
 from .models import Post, Comment
 from django.contrib.auth import authenticate, login, logout
 
+# to print pretty dictionaries
+from pprint import pprint
+
 # Create your views here.
 
 # new function that creates an object in the dictionary (refer back to screenshot)
@@ -58,8 +61,6 @@ def index(request):
     # # gets all posts and comments from the respective models
     allposts = Post.objects.order_by('-pub_date')
     allcomments = Comment.objects.order_by('-pub_date')
-    for post in allposts:
-        print(Comment.objects.filter(post = post))
 
     # START OF TRAIL AND ERROR
 
@@ -72,14 +73,43 @@ def index(request):
     #     comments = Comment.objects.filter(post = post)
     #     postDict['comments'] = comments
     #     postList.append(postDict)
-    postList = []
+
+    # postList = []
+    # for post in allposts:
+    #     postDict = getPostDict(post)
+    #     postList.append(postDict)
+
+    #loop through the posts
+
+    alldata = []    # combined list including posts and their attributes + comments
     for post in allposts:
-        postDict = getPostDict(post)
-        postList.append(postDict)
+        postDict = {}
+        # add attributes of each post into dictionary postDict
+        postDict['user'] = post.user
+        postDict['text'] = post.text
+        postDict['pub_date'] = post.pub_date
+
+        print("pre")
+        pprint(postDict)
+
+        postCommentsList = []   # to house all the comments of the post plus subcomments
+        postComments = Comment.objects.filter(post=post)
+        pprint(postComments)
+
+        i = 0
+        for comment in postComments: # loops through the postComments queryset
+            # appends the list of subcomments (and their subcomments) for each comment
+            # into the postCommentsList
+            postCommentsList.append(i)
+            i += 1
+
+        postDict['comments'] = postCommentsList
+        print("post")
+        pprint(postDict)
 
     # END OF TRIAL AND ERROR
 
-    # creates json
+    # creates json objects with context
     context = {
         'allposts': allposts,
         'allcomments': allcomments,
