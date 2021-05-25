@@ -12,23 +12,14 @@ from pprint import pprint
 # new function that creates an object in the dictionary (refer back to screenshot)
     # look for root posts if there are any comments, and get those comments, and look
     # to check if each comment has any subcomments
-def getPostDict(post):
-    postDict = {}   # post dictionary for one post
-    # adding model attributes to dictionary --> find a more efficient way to do this?...
-    postDic['user'] = post.user
-    postDict['text'] = post.text
-    postDict['pub_date'] = post.pub_date
-    postDict['comments'] = []
-    # if a post has comments
-    if Comments.objects.filter(post = post).exists():
-        for comment in Comment.objects.order_by('-pub_date'):
-            # if comment's commentingOn = null:
-                # append comment to postDict['comments']
-            # else:
-                # loop through getPostDict(comment), and keep doing this until
-                # commentingOn is null
-                # question: make a dictionary in place of simply a comment?
-            pass
+def getComment(comment):
+    allcomments = []
+    subComments = Comment.objects.filter(commentingOn = comment)
+
+    if subComments:
+        return True
+    else:
+        return False
 
 def index(request):
     """
@@ -64,21 +55,6 @@ def index(request):
 
     # START OF TRAIL AND ERROR
 
-    # allPosts = Post.objects.all()
-    # postList = []
-    # for post in allPosts:
-    #     postDict = {}
-    #     postDict['post'] = post
-    #
-    #     comments = Comment.objects.filter(post = post)
-    #     postDict['comments'] = comments
-    #     postList.append(postDict)
-
-    # postList = []
-    # for post in allposts:
-    #     postDict = getPostDict(post)
-    #     postList.append(postDict)
-
     #loop through the posts
 
     alldata = []    # combined list including posts and their attributes + comments
@@ -93,15 +69,15 @@ def index(request):
         pprint(postDict)
 
         postCommentsList = []   # to house all the comments of the post plus subcomments
-        postComments = Comment.objects.filter(post=post)
+        # filters out all the commentingOn comments --> will be filtered in in getComment()
+        postComments = Comment.objects.filter(post=post, commentingOn__isnull = True)
         pprint(postComments)
 
-        i = 0
         for comment in postComments: # loops through the postComments queryset
             # appends the list of subcomments (and their subcomments) for each comment
             # into the postCommentsList
-            postCommentsList.append(i)
-            i += 1
+            pprint(comment.text)
+            postCommentsList.append(getComment(comment))
 
         postDict['comments'] = postCommentsList
         print("post")
