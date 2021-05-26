@@ -16,6 +16,7 @@ def getComment(comment):
     """
     recursive function - retrieves a list of list of list of comments
     """
+    # creates new comment dictionary to contain all the subcomments for each base comment
     commentDict = {}
     commentDict['text'] = comment.text
     commentDict['likes'] = comment.likes
@@ -36,7 +37,7 @@ def getComment(comment):
     # pprint(commentDict)
     return commentDict
 
-
+# default home page view
 def index(request):
     """
     first view (home page) - move login to own view?
@@ -67,11 +68,6 @@ def index(request):
 
     # # gets all posts and comments from the respective models
     allposts = Post.objects.order_by('-pub_date')
-    allcomments = Comment.objects.order_by('-pub_date')
-
-    # START OF TRAIL AND ERROR
-
-    #loop through the posts
 
     alldata = []    # combined list including posts and their attributes + comments
     for post in allposts:
@@ -79,6 +75,7 @@ def index(request):
         # add attributes of each post into dictionary postDict
         postDict['user'] = post.user
         postDict['text'] = post.text
+        postDict['likes'] = post.likes
         postDict['pub_date'] = post.pub_date
 
         # print("\npre")
@@ -97,14 +94,14 @@ def index(request):
 
         postDict['comments'] = postCommentsList
         # print("\npost")
-        pprint(postDict)
+        # pprint(postDict)
+        alldata.append(postDict)
 
-    # END OF TRIAL AND ERROR
+    pprint(alldata)
 
     # creates json objects with context
     context = {
-        'allposts': allposts,
-        'allcomments': allcomments,
+        'alldata': alldata,
         'loggedIn': loggedIn,
         'user': request.user
         }

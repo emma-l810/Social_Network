@@ -25,6 +25,7 @@ class Post(models.Model):
     # links to the built-in User model
     user = models.ForeignKey(User, on_delete = models.CASCADE) # delete a user, delete their posts
     text = models.CharField(max_length = 200)
+    likes = models.IntegerField(default=0)
     pub_date = models.DateTimeField(default = now)
 
     # def __str__(self):

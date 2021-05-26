@@ -4,34 +4,54 @@
   <head>
     <meta charset="utf-8">
     <title>SocialNetwork</title>
+
+    <!-- BOOTSTRAP UPLOADS -->
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <!-- Popper JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+
   </head>
   <body style="background-color: #FFE2F0">
-  <div>
+  <div class="container-fluid pt-20">
     <!-- random intro blurb -->
     <h1>The Social Network</h1>
     <h3>Your safe space to post real life instead of fake media.</h3>
     <p>social social social social social social social every day</p>
     <br>
 
-    <!-- if the user is logged in -->
+    <!-- only displays if the user is logged in -->
     {% if loggedIn %}
       <h3>Hello, {{ user.username }}!</h3>
 
-      <!-- outputs of dummy Posts and Comments -->
+      <!-- outputs of Posts and Comments -->
       <h4>Posts</h4>
-      <!-- dummy posts -->
+      <!-- loops through and displays each post + corresponding comments -->
       <ul>
-        {% for post in allposts %}
-          <p><b>{{post.user}}</b></p>
-          <p>{{post.text}} <br> {{post.pub_date}}</p>
+        {% for post in alldata %}
+          <p>{{post.text}} <br> {{post.likes}} likes</p>
 
           <ul>
-          <!-- {% for comment in allcomments %}
-            {% if comment.post.id == post.id %}
-              <p>{{comment.text}} <br> {{comment.likes}} <3 {{comment.pub_date}}</p>
+          <!-- loops through each comment of each post to display corresponding subcomments -->
+          {% for comment in post.comments %}
+            <p> {{comment.text}} <br> {{comment.likes}} likes </p>
 
-            {% endif %}
-          {% endfor %} -->
+            <ul>
+              <!-- loops for subcomments -->
+              {% for subcomment in comment.subcomments %}
+                <p> {{subcomment.text}} <br> {{subcomment.likes}} likes </p>
+              {% endfor %}
+            </ul>
+
+          {% endfor %}
         </ul>
 
         <!-- note: text is attribute of post -->
