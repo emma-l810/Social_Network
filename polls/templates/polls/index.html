@@ -4,104 +4,34 @@
   <head>
     <meta charset="utf-8">
     <title>SocialNetwork</title>
-
-    <!-- BOOTSTRAP UPLOADS -->
-    <!-- Latest compiled and minified CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-
-    <!-- jQuery library -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-
-    <!-- Popper JS -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-
-    <!-- Latest compiled JavaScript -->
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-
-
   </head>
   <body style="background-color: #FFE2F0">
-  <div class="container-fluid pt-20">
-    <div class="row font" style="background: #000000; padding: -20px; font-size:1.5em">
-        <div class="col-xl-12">
-
-          <!-- nav bar -->
-          <nav class="navbar navbar-expand-md sticky-top justify-content-between">
-            <!-- collapsable nav bar when screen is small -->
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
-              <!-- could potentially change the icon if y'all want to; or could add a logo -->
-              <span class="navbar-toggler-icon"><img src="https://21thirteen.com/wp-content/uploads/2016/03/hamburger-menu.jpg" alt="Scroll bar"
-              style="width:30px;height:30px" /></span>
-            </button>
-
-            <div class="collapse navbar-collapse" id="collapsibleNavbar">
-             <ul class="navbar-nav mr-auto" style="margin-top: 10px; margin-bottom: 10px">
-               <!-- for python tab -->
-               <li class="nav-item">
-                 <a class="nav-link gridtheme navbartheme" href="pythonpage.html" style="font-size:0.65em;">Python</a>
-               </li>
-               <!-- for java tab -->
-               <li class="nav-item">
-                 <a class="nav-link gridtheme navbartheme" href="javapage.html" style="font-size:0.65em">Java</a>
-               </li>
-               <!-- for html tab -->
-               <li class="nav-item">
-                 <a class="nav-link gridtheme navbartheme" href="htmlpage.html" style="font-size:0.65em">HTML</a>
-               </li>
-               <!-- for css/bootstrap4 tab - disabled -->
-               <li class="nav-item">
-                 <a class="nav-link disabled gridtheme navbartheme" href="css/bs4page.html" style="color:#d1d1e0;font-size:0.65em">CSS/Bootstrap4</a>
-               </li>
-             </ul>
-               <!-- search bar - doesn't yet work, need to center it within the nav bar -->
-               <!-- modify input field later -> try to get it so that it will act like a normal search bar -->
-
-               <ul class="navbar-nav ml-auto" style="margin-top: 10px; margin-bottom: 10px">
-               <li class="nav-item float-right">
-               <form class="form-inline ml-auto nav-link ">
-                 <div class="md-form my-0 ml-auto form-inline">
-
-                     <input class="form-control float-right" type="text" placeholder="Search" aria-label="Search">
-
-                 </div>
-               </form>
-             </li>
-
-
-
-             </ul>
-           </div>
-
-         </nav>
-
-       </div>
-     </div>
+  <div>
     <!-- random intro blurb -->
     <h1>The Social Network</h1>
     <h3>Your safe space to post real life instead of fake media.</h3>
     <p>social social social social social social social every day</p>
     <br>
 
-    <!-- only displays if the user is logged in -->
+    <!-- if the user is logged in -->
     {% if loggedIn %}
       <h3>Hello, {{ user.username }}!</h3>
 
-      <!-- outputs of Posts and Comments -->
+      <!-- outputs of dummy Posts and Comments -->
       <h4>Posts</h4>
-      <!-- loops through and displays each post + corresponding comments -->
+      <!-- dummy posts -->
       <ul>
         {% for post in alldata %}
-          <p>{{post.text}} <br> {{post.likes}} likes</p>
+          <p><b>{{post.user}}</b></p>
+          <p>{{post.text}} <br> {{post.pub_date}}</p>
 
           <ul>
-          <!-- loops through each comment of each post to display corresponding subcomments -->
           {% for comment in post.comments %}
-            <p> {{comment.text}} <br> {{comment.likes}} likes </p>
+            <p>{{comment.text}} <br> {{comment.likes}} likes {{comment.pub_date}}</p>
 
             <ul>
-              <!-- loops for subcomments -->
               {% for subcomment in comment.subcomments %}
-                <p> {{subcomment.text}} <br> {{subcomment.likes}} likes </p>
+                <p> {{subcomment.text}} <br> {{subcomment.likes}} likes {{subcomment.pub_date}}</p>
               {% endfor %}
             </ul>
 
