@@ -13,17 +13,29 @@ from pprint import pprint
     # look for root posts if there are any comments, and get those comments, and look
     # to check if each comment has any subcomments
 def getComment(comment):
-    allcomments = []
+    """
+    recursive function - retrieves a list of list of list of comments
+    """
+    commentDict = {}
+    commentDict['text'] = comment.text
+    commentDict['likes'] = comment.likes
+    commentDict['pub_date'] = comment.pub_date
+
     subComments = Comment.objects.filter(commentingOn = comment)
 
     if subComments:
-<<<<<<< HEAD
         layeredComments = []
-=======
->>>>>>> 96773816dec7f03cfcc0a225758c4880d22d0f37
-        return True
-    else:
-        return False
+        for subComment in subComments:
+            subCommentDict = getComment(subComment)
+
+            layeredComments.append(subCommentDict)
+            # pprint(layeredComments)
+        commentDict['subcomments'] = layeredComments
+
+    # print("commentDict")
+    # pprint(commentDict)
+    return commentDict
+
 
 def index(request):
     """
@@ -69,22 +81,22 @@ def index(request):
         postDict['text'] = post.text
         postDict['pub_date'] = post.pub_date
 
-        print("pre")
-        pprint(postDict)
+        # print("\npre")
+        # pprint(postDict)
 
         postCommentsList = []   # to house all the comments of the post plus subcomments
         # filters out all the commentingOn comments --> will be filtered in in getComment()
         postComments = Comment.objects.filter(post=post, commentingOn__isnull = True)
-        pprint(postComments)
+        # pprint(postComments)
 
         for comment in postComments: # loops through the postComments queryset
             # appends the list of subcomments (and their subcomments) for each comment
             # into the postCommentsList
-            pprint(comment.text)
-            postCommentsList.append(getComment(comment))
+            if not comment.commentingOn:
+                postCommentsList.append(getComment(comment))
 
         postDict['comments'] = postCommentsList
-        print("post")
+        # print("\npost")
         pprint(postDict)
 
     # END OF TRIAL AND ERROR
