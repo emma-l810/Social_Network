@@ -3,6 +3,7 @@ from django.http import HttpResponse
 from django.contrib.auth.models import User
 from .models import Post, Comment
 from django.contrib.auth import authenticate, login, logout
+from django.utils import timezone
 
 # to print pretty dictionaries
 from pprint import pprint
@@ -18,12 +19,14 @@ def getComment(comment):
     """
     # creates new comment dictionary to contain all the subcomments for each base comment
     commentDict = {}
-    commentDict['text'] = comment.text
+    commentDict['text'] = comment.text  # adds other attributes to the commentDict
     commentDict['likes'] = comment.likes
     commentDict['pub_date'] = comment.pub_date
 
+    # collects subcomments with attribute commentingOn being not null
     subComments = Comment.objects.filter(commentingOn = comment)
 
+    # recursive statement -> loops through the loop until the
     if subComments:
         layeredComments = []
         for subComment in subComments:
@@ -59,6 +62,15 @@ def index(request):
         elif 'logout' in request.POST.keys():
             # kill the section
             logout(request)
+
+        # entering data and saving it --> need to put it in the request.POST
+        if 'postNew' in request.POST.keys():
+            newPost = Post(
+                postText = request.Post['postNew'],
+                userPosted = request.user,
+                pubDate = timezone.now(),
+            )
+            newPost.save()
 
     # sets loggedIn variable to be used in HTML
     if request.user.is_authenticated:
@@ -111,6 +123,14 @@ def index(request):
 def profile(request):
     """
     for the user profile (profile page) -> for login=true only
+    """
+    context = {}
+    return render(request, 'polls/profile.html', context)
+
+def post(request):
+    """
+    for the create new post tab -> allows the user to create a new post separate
+    from the index.html template page
     """
     context = {}
     return render(request, 'polls/profile.html', context)
