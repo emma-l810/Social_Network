@@ -63,15 +63,6 @@ def index(request):
             # kill the section
             logout(request)
 
-        # entering data and saving it --> need to put it in the request.POST
-        if 'postNew' in request.POST.keys():
-            newPost = Post(
-                postText = request.Post['postNew'],
-                userPosted = request.user,
-                pubDate = timezone.now(),
-            )
-            newPost.save()
-
     # sets loggedIn variable to be used in HTML
     if request.user.is_authenticated:
         loggedIn = True
@@ -132,5 +123,15 @@ def post(request):
     for the create new post tab -> allows the user to create a new post separate
     from the index.html template page
     """
+    # entering data and saving it --> need to put it in the request.POST
+    if request.POST:
+        if 'postNew' in request.POST.keys():
+            newPost = Post(
+                text = request.POST['postNew'],
+                user = request.user,
+                pub_date = timezone.now(),
+            )
+            newPost.save()
+        print("saved")
     context = {}
-    return render(request, 'polls/profile.html', context)
+    return render(request, 'polls/post.html', context)
