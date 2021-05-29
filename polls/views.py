@@ -3,6 +3,7 @@ from django.http import HttpResponse
 from django.contrib.auth.models import User
 from .models import Post, Comment
 from django.contrib.auth import authenticate, login, logout
+from django.utils import timezone
 
 # to print pretty dictionaries
 from pprint import pprint
@@ -18,12 +19,14 @@ def getComment(comment):
     """
     # creates new comment dictionary to contain all the subcomments for each base comment
     commentDict = {}
-    commentDict['text'] = comment.text
+    commentDict['text'] = comment.text  # adds other attributes to the commentDict
     commentDict['likes'] = comment.likes
     commentDict['pub_date'] = comment.pub_date
 
+    # collects subcomments with attribute commentingOn being not null
     subComments = Comment.objects.filter(commentingOn = comment)
 
+    # recursive statement -> loops through the loop until the
     if subComments:
         layeredComments = []
         for subComment in subComments:
@@ -121,3 +124,21 @@ def profile(request, username):
         'recentPosts': recentPosts
     }
     return render(request, 'polls/profile.html', context)
+
+def post(request):
+    """
+    for the create new post tab -> allows the user to create a new post separate
+    from the index.html template page
+    """
+    # entering data and saving it --> need to put it in the request.POST
+    if request.POST:
+        if 'postNew' in request.POST.keys():
+            newPost = Post(
+                text = request.POST['postNew'],
+                user = request.user,
+                pub_date = timezone.now(),
+            )
+            newPost.save()
+        print("saved")
+    context = {}
+    return render(request, 'polls/post.html', context)

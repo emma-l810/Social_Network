@@ -53,6 +53,9 @@
                 <li class="nav-item">
                   <a class="nav-link gridtheme navbartheme" href="http://127.0.0.1:8000/profile" style="font-size:0.65em;">Profile</a>
                 </li>
+                <li class="nav-item">
+                  <a class="nav-link gridtheme navbartheme" href="http://127.0.0.1:8000/post" style="font-size:0.65em;">Create</a>
+                </li>
               </ul>
 
               <!-- search bar - not sure what to do with it yet (sink up with django? make it an actual form) -->
@@ -79,8 +82,23 @@
     {% if loggedIn %}
       <h3>Hello, {{ user.username }}!</h3>
 
+      <!-- form for inputting new posts (later add something to upload an image) -->
+      <form action="http://127.0.0.1:8000/" method="post">
+        {% csrf_token %}
+        <label for="postNew">New Post</label>
+        <!-- textarea does input but makes a bigger paragraph box text -->
+        <br>
+        <textarea type="paragraph_text" name="postNew" id="postNew" rows="4" cols="50"></textarea>
+
+        <br>
+        <button type="submit">POST</button>
+      </form>
+
+      <br><br>
+
       <!-- outputs of Posts and Comments -->
       <h4>Posts</h4>
+
       <!-- loops through and displays each post + corresponding comments -->
       <ul>
         {% for post in alldata %}
