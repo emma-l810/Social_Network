@@ -70,7 +70,7 @@
         <!-- linebreak -->
         <hr>
 
-        <form action="http://127.0.0.1:8000/" method="post">
+        <form action="http://127.0.0.1:8000/post/" method="post">
           {% csrf_token %}
           <label for="postNew">New Post</label>
           <!-- textarea does input but makes a bigger paragraph box text -->
@@ -80,7 +80,7 @@
           <br>
           <button type="submit">POST</button>
         </form>
-        
+
     </div>
   </div>
   </body>
