@@ -3,9 +3,70 @@
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">
-    <title></title>
+    <title>Profile</title>
+
+    <!-- BOOTSTRAP UPLOADS -->
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <!-- Popper JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
   </head>
   <body>
-    <h1>Post your non-IG perfect photos here.</h1>
+  <div class="container-fluid pt-20">
+    <div class="row font" style="background: #ffffff; padding: -20px; font-size:1.5em">
+      <div class="col-xl-12">
+
+        <!-- nav bar -->
+        <nav class="navbar navbar-expand-md sticky-top justify-content-between">
+          <!-- nav bar logo - SocialNetwork -->
+          <a href="#" class="navbar-brand" style="margin-left:100px; margin-down:-20px">
+            {% load static %}
+            <img src="{% static "polls/SocialNetwork2.png" %}" alt="logo" width=175 height=55 >
+          </a>
+
+          <!-- collapsable nav bar when screen is small -->
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+            <!-- collapsable nav bar icon -->
+            <span class="navbar-toggler-icon"><img src="https://21thirteen.com/wp-content/uploads/2016/03/hamburger-menu.jpg" alt="Scroll bar"
+            style="width:30px;height:30px" /></span>
+          </button>
+
+          <!-- nav bar content -->
+          <div class="collapse navbar-collapse" id="collapsibleNavbar">
+            <ul class="navbar-nav ml-auto" style="margin-top: 10px; margin-bottom: 10px; margin-left: 100px">
+              <!-- somehow get this to move all the way to the left (bs4 formatting) -->
+              <li class="nav-item">
+                <a class="nav-link gridtheme navbartheme" href="http://127.0.0.1:8000/profile" style="font-size:0.65em;">Profile</a>
+              </li>
+            </ul>
+
+            <!-- search bar - not sure what to do with it yet (sink up with django? make it an actual form) -->
+            <ul class="navbar-nav ml-auto" style="margin-top: 10px;">
+            <li class="nav-item float-right">
+            <form class="form-inline ml-auto nav-link " style="margin-right:100px">
+              <div class="md-form my-0 ml-auto form-inline">
+
+                  <input class="form-control float-right" type="text" placeholder="Search" aria-label="Search">
+
+            <!-- bunch of closing tags that thankfully match up  -->
+              </div>
+            </form>
+            </li>
+            </ul>
+          </div>
+          </nav>
+        </div>
+
+    </div>
+
+  </div>
   </body>
 </html>

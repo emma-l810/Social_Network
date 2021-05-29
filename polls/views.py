@@ -108,9 +108,16 @@ def index(request):
 
     return render(request, 'polls/index.html', context)
 
-def profile(request):
+def profile(request, username):
     """
     for the user profile (profile page) -> for login=true only
     """
-    context = {}
+    # not really sure what the id is --> ASK?
+    thisUser = User.objects.filter(id=id)
+    userPosts = Post.objects.filter(user=username)  # get all posts by user
+    recentPosts = userPosts.order_by('-pub_date')[:6]   # gets the five most recent posts
+    context = {
+        'user': user,
+        'recentPosts': recentPosts
+    }
     return render(request, 'polls/profile.html', context)
