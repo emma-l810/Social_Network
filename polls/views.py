@@ -100,7 +100,7 @@ def index(request):
         # pprint(postDict)
         alldata.append(postDict)
 
-    pprint(alldata)
+    # pprint(alldata)
 
     # creates json objects with context
     context = {
