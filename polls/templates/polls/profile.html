@@ -65,6 +65,18 @@
           </nav>
         </div>
 
+        <p>{{thisUser}}</p>
+
+        <div class="col-xl-12">
+          <h6>Welcome to your empty profile</h6>
+          <ul>
+            {% for posts in recentPosts %}
+              <p>{{post.text}} <br> {{post.likes}} likes</p>
+            {% endfor %}
+          </ul>
+
+        </div>
+
     </div>
 
   </div>

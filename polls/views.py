@@ -28,8 +28,11 @@ def getComment(comment):
 
     # recursive statement -> loops through the loop until the
     if subComments:
+        # list for that is saved for every subcomment
         layeredComments = []
+        # recursive forloop
         for subComment in subComments:
+            # recursive statement that calls again for every subcomment of each comment; returns a dict
             subCommentDict = getComment(subComment)
 
             layeredComments.append(subCommentDict)
@@ -62,15 +65,6 @@ def index(request):
         elif 'logout' in request.POST.keys():
             # kill the section
             logout(request)
-
-        # entering data and saving it --> need to put it in the request.POST
-        # if 'postNew' in request.POST.keys():
-        #     newPost = Post(
-        #         text = request.POST['postNew'],
-        #         user = request.user,
-        #         pub_date = timezone.now(),
-        #     )
-        #     newPost.save()
 
     # sets loggedIn variable to be used in HTML
     if request.user.is_authenticated:
@@ -120,25 +114,29 @@ def index(request):
 
     return render(request, 'polls/index.html', context)
 
-def profile(request, username):
+def profile(request):
     """
     for the user profile (profile page) -> for login=true only
     """
     # not really sure what the id is --> ASK?
-    thisUser = User.objects.filter(id=id)
-    userPosts = Post.objects.filter(user=username)  # get all posts by user
+    thisUser = request.user.id
+    pprint(thisUser)
+    userPosts = Post.objects.filter(user=thisUser)  # get all posts by user
     recentPosts = userPosts.order_by('-pub_date')[:6]   # gets the five most recent posts
+    pprint(recentPosts)
     context = {
-        'user': user,
+        'user': thisUser,
         'recentPosts': recentPosts
     }
     return render(request, 'polls/profile.html', context)
+
 
 def post(request):
     """
     for the create new post tab -> allows the user to create a new post separate
     from the index.html template page
     """
+    postUploaded = False
     if request.POST:
         if 'postNew' in request.POST.keys():
             newPost = Post(
@@ -147,6 +145,10 @@ def post(request):
                 pub_date = timezone.now(),
             )
             newPost.save()
+
+            postUploaded = True
         print("saved")
-    context = {}
+    context = {
+        'postUploaded': postUploaded
+        }
     return render(request, 'polls/post.html', context)

@@ -26,7 +26,7 @@
         <!-- nav bar -->
         <nav class="navbar navbar-expand-md sticky-top justify-content-between">
           <!-- nav bar logo - SocialNetwork -->
-          <a href="#" class="navbar-brand" style="margin-left:100px; margin-down:-20px">
+          <a href="http://127.0.0.1:8000/" class="navbar-brand" style="margin-left:100px; margin-down:-20px">
             {% load static %}
             <img src="{% static "polls/SocialNetwork2.png" %}" alt="logo" width=175 height=55 >
           </a>
@@ -68,18 +68,29 @@
         </div>
 
         <!-- linebreak -->
-        <hr>
 
-        <form action="http://127.0.0.1:8000/post/" method="post">
-          {% csrf_token %}
-          <label for="postNew">New Post</label>
-          <!-- textarea does input but makes a bigger paragraph box text -->
-          <br>
-          <textarea type="paragraph_text" name="postNew" id="postNew" rows="4" cols="50"></textarea>
+        <div class="col-xl-12">
+          <hr>
+          <h6>hello my friends</h6>
 
-          <br>
-          <button type="submit">POST</button>
-        </form>
+        <!-- is it possible for the action to go to index.html, but keep the view in the post view? -->
+          {% if postUploaded %}
+            <h6 style="text-align:center">Your post has been posted! Return to home to view your new post.</h6>
+
+          {% else %}
+            <form action="http://127.0.0.1:8000/post/" method="post">
+              {% csrf_token %}
+              <label for="postNew">New Post</label>
+              <!-- textarea does input but makes a bigger paragraph box text -->
+              <br>
+              <textarea type="paragraph_text" name="postNew" id="postNew" rows="4" cols="50"></textarea>
+
+              <br>
+              <button type="submit">POST</button>
+            </form>
+          {% endif %}
+
+        </div>
 
     </div>
   </div>
