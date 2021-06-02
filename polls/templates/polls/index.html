@@ -24,6 +24,7 @@
     <!-- Latest compiled JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
+    <!-- loads css stylesheet (note: if doesn't work, do findstatic or collectstatic) -->
     {% load static %}
     <link rel="stylesheet" href="{% static 'polls/mystyles.css' %}">
 
@@ -106,17 +107,17 @@
       <!-- the css doesn't work (neither the css file in the static sheet nor the inline comments) -->
       <ul>
         {% for post in alldata %}
-          <p style="border: 2px silver;border-radius: 8px;">{{post.text}} <br> {{post.likes}} likes</p>
+          <p>{{post.text}} <br> {{post.likes}} likes</p>
 
           <ul>
           <!-- loops through each comment of each post to display corresponding subcomments -->
           {% for comment in post.comments %}
-            <p style="border: 2px silver;border-radius: 8px;"> {{comment.text}} <br> {{comment.likes}} likes </p>
+            <p class="comments"> {{comment.text}} <br> {{comment.likes}} likes </p>
 
             <ul>
               <!-- loops for subcomments -->
               {% for subcomment in comment.subcomments %}
-                <p style="border: 2px silver;border-radius: 8px;"> {{subcomment.text}} <br> {{subcomment.likes}} likes </p>
+                <p class="comments"> {{subcomment.text}} <br> {{subcomment.likes}} likes </p>
               {% endfor %}
             </ul>
 

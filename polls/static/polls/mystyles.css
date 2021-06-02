@@ -1,4 +1,10 @@
+/* for the various posts/comments */
 p {
-  border: 2px silver;
+  border: 2px solid silver;
   border-radius: 8px;
+  padding:10px;
+}
+
+.comments {
+  background-color: whitesmoke;
 }
